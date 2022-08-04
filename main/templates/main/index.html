@@ -1,12 +1,49 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script type="text/javascript" src="/my_admin/jsi18n/"></script>
+<script type="text/javascript" src="/media/admin/js/core.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/media/admin/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/global.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/widgets.css"/>
     <title>Index</title>
 </head>
 <body>
-    <h1>Test</h1>
+    <h1>ToDoList</h1>
+    <div class="container">
+        <form style='margin:auto;' method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+
+            <input type="submit" value="Save">
+        </form>
+    {% for item in todolist %}
+        <div class='block' {% if item.done %} style='background-color:rgb(171, 255, 227);' {% elif item.rejected %} style='background-color:rgb(254, 164, 164);' {% else %} style='background-color:white;' {% endif %}>
+        {% if item.done %}
+        <div class='item'><input type='checkbox' checked ></div>
+     
+        {% else %}
+        <div class='item'><input type='checkbox'  ></div>
+        {% endif %}
+           
+            <div class='item' style='width:300px;'>       
+                <h3>{{item.title}}</h3>
+                <p>{{item.body}}</p> </div>
+            <div class='item'><a href='{% url 'reject' item.id %}'> <i class="fa-solid fa-x"></i></a></div>
+            <div class='item'><a href='{% url 'done' item.id %}'> <i class="fa-solid fa-check"></i></a></div>
+            <div class='item'><a href = '{% url 'remove' item.id %}'><i class="fa-solid fa-trash-can"></i></a></div>
+        </div>
+    
+    {% endfor %}
+</div>  
+
 </body>
 </html>

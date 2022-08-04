@@ -1,0 +1,29 @@
+*{
+    padding: 0;
+    margin: 0;
+    
+}
+body{
+height: 100%;
+width: 100%;
+}
+.container{
+ 
+
+}
+.item{
+    padding: 10px;
+    margin: 5px 20px;
+  
+}
+.block{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    border-radius: 7px;
+    width: 50%;
+    margin: 40px auto 0 auto;
+    box-shadow: 0 2px 5px 1px rgb(202, 201, 201), 0 5px 10px 1px rgb(210, 208, 208);
+    background-color:rgb(254, 164, 164);
+    
+}
