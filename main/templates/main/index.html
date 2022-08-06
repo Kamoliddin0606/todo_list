@@ -17,15 +17,75 @@
     <title>Index</title>
 </head>
 <body>
+    <h3>Welcame {{request.user.username}}</h3>
+    <a href='{% url 'logout' %}'><button>Logout</button></a>
     <h1>ToDoList</h1>
-    <div class="container">
+    < class="container">
         <form style='margin:auto;' method="post">
             {% csrf_token %}
             {{form.as_p}}
+            {% if update %}
+            <input type="hidden" name='update' value="{{update}}">
+            <input type="submit" value="Update">
 
-            <input type="submit" value="Save">
+            {% else %}
+            <input type="hidden" name='update' value=None>
+            <input type="submit" value="Create">
+
+            {% endif %}
         </form>
-    {% for item in todolist %}
+            <h1>New tasks</h1>
+            {% for item in list_new %}
+            <div class='block' {% if item.done %} style='background-color:rgb(171, 255, 227);' {% elif item.rejected %} style='background-color:rgb(254, 164, 164);' {% else %} style='background-color:white;' {% endif %}>
+            {% if item.done %}
+            <div class='item'><input type='checkbox' checked ></div>
+         
+            {% else %}
+            <div class='item'><input type='checkbox'  ></div>
+            {% endif %}
+               
+                <div class='item' style='width:300px;'>       
+                    <h3>{{item.title}}</h3>
+                    <p>{{item.body}}</p> </div>
+                <div class='item'><a href='{% url 'update' item.id %}'> <i class="fa-solid fa-pen"></i></a></div>
+                <div class='item'><a href='{% url 'start' item.id %}'> <i class="fa-solid fa-play"></i></a></div>
+                <div class='item'><a href='{% url 'reject' item.id %}'> <i class="fa-solid fa-x"></i></a></div>
+                <div class='item'><a href='{% url 'done' item.id %}'> <i class="fa-solid fa-check"></i></a></div>
+                <div class='item'><a href = '{% url 'remove' item.id %}'><i class="fa-solid fa-trash-can"></i></a></div>
+            </div>
+        
+        {% endfor %}
+
+        
+        {% if not list_progress %}
+        <h1>In progress</h1>
+        <p>Not items to show</p>
+        {% else %}
+        <h1>In progress</h1>
+        
+            {% for item in list_progress %}
+            <div class='block' {% if item.done %} style='background-color:rgb(171, 255, 227);' {% elif item.rejected %} style='background-color:rgb(254, 164, 164);' {% else %} style='background-color:white;' {% endif %}>
+            {% if item.done %}
+            <div class='item'><input type='checkbox' checked ></div>
+         
+            {% else %}
+            <div class='item'><input type='checkbox'  ></div>
+            {% endif %}
+               
+                <div class='item' style='width:300px;'>       
+                    <h3>{{item.title}}</h3>
+                    <p>{{item.body}}</p> </div>
+                <div class='item'><a href='{% url 'start' item.id %}'> <i class="fa-solid fa-pen"></i></a></div>
+                <div class='item'><a href='{% url 'start' item.id %}'> <i class="fa-solid fa-pause"></i></a></div>
+                <div class='item'><a href='{% url 'reject' item.id %}'> <i class="fa-solid fa-x"></i></a></div>
+                <div class='item'><a href='{% url 'done' item.id %}'> <i class="fa-solid fa-check"></i></a></div>
+                <div class='item'><a href = '{% url 'remove' item.id %}'><i class="fa-solid fa-trash-can"></i></a></div>
+            </div>
+        
+        {% endfor %}
+        {% endif %}
+        <h1>Done</h1>
+        {% for item in list_done %}
         <div class='block' {% if item.done %} style='background-color:rgb(171, 255, 227);' {% elif item.rejected %} style='background-color:rgb(254, 164, 164);' {% else %} style='background-color:white;' {% endif %}>
         {% if item.done %}
         <div class='item'><input type='checkbox' checked ></div>
@@ -43,6 +103,28 @@
         </div>
     
     {% endfor %}
+
+    <h1>Rejected</h1>
+    {% for item in list_reject %}
+    <div class='block' {% if item.done %} style='background-color:rgb(171, 255, 227);' {% elif item.rejected %} style='background-color:rgb(254, 164, 164);' {% else %} style='background-color:white;' {% endif %}>
+    {% if item.done %}
+    <div class='item'><input type='checkbox' checked ></div>
+ 
+    {% else %}
+    <div class='item'><input type='checkbox'  ></div>
+    {% endif %}
+       
+        <div class='item' style='width:300px;'>       
+            <h3>{{item.title}}</h3>
+            <p>{{item.body}}</p> </div>
+        <div class='item'><a href='{% url 'reject' item.id %}'> <i class="fa-solid fa-x"></i></a></div>
+        <div class='item'><a href='{% url 'done' item.id %}'> <i class="fa-solid fa-check"></i></a></div>
+        <div class='item'><a href = '{% url 'remove' item.id %}'><i class="fa-solid fa-trash-can"></i></a></div>
+    </div>
+
+{% endfor %}
+      
+   
 </div>  
 
 </body>

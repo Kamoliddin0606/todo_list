@@ -27,3 +27,8 @@ width: 100%;
     background-color:rgb(254, 164, 164);
     
 }
+.column{
+    display: flex;
+    flex-direction: row;
+    justify-items: flex-end;
+}
