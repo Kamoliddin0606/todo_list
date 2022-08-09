@@ -82,10 +82,13 @@ span.psw {
     <label for="username"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="username" required>
 
-    <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" required>
+    <label for="password1"><b>Password 1</b></label>
+    <input type="password" placeholder="Enter Password 1" name="password1" required>
+   
+    <label for="password2"><b>Password 2</b></label>
+    <input type="password" placeholder="Enter Password 2" name="password2" required>
         
-    <button type="submit">Login</button>
+    <button type="submit">Change Password </button>
     <label>
       <input type="checkbox" checked="checked" name="remember"> Remember me
     </label>
@@ -93,7 +96,7 @@ span.psw {
 
   <div class="container" style="background-color:#f1f1f1">
     <input type="button" class="cancelbtn">Cancel</input>
-    <span class="psw">Forgot <a href="{% url 'changePass' %}">password?</a></span>
+    <span class="psw">Forgot <a href="#">password?</a></span>
   </div>
 </form>
 
